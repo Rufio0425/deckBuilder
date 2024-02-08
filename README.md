@@ -1,6 +1,9 @@
 # Deck Builder
 
-This program is a deck builder that allows users to create custom decks by adding cards.
+Deck builder is a simple tool to store your Magic The Gathering card.  
+The goal of this project is:
+- To allow a virtual experience for MTG enthusiasts to store the physical cards they own
+- Check a card's legality status (legal, not legal, banned) for certain formats
 
 ## Build Program
 
