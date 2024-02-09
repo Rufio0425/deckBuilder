@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -10,6 +9,12 @@ import (
 	"os"
 	"strings"
 )
+
+type Card struct {
+	Name            string `json:"name"`
+	FlavorName      string `json:"flavor_name"`
+	CardDescription string `json:"oracle_text"`
+}
 
 func main() {
 	// Create a scanner to read from standard input
@@ -51,12 +56,12 @@ func getCard(cardname string) {
 		return
 	}
 
-	var prettyJSON bytes.Buffer
-	err = json.Indent(&prettyJSON, body, "", "  ")
+	var card Card
+	err = json.Unmarshal(body, &card)
 	if err != nil {
-		fmt.Printf("Error formatting JSON: %s", err)
+		fmt.Printf("Error unmarshalling card: %s", err)
 		return
 	}
 
-	fmt.Println("Response Body:", prettyJSON.String())
+	fmt.Println("Response Body:", card)
 }
