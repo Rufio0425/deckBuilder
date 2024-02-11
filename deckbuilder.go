@@ -1,13 +1,11 @@
 package main
 
 import (
-	"bufio"
 	"encoding/json"
 	"fmt"
+	"github.com/gorilla/mux"
 	"io"
 	"net/http"
-	"os"
-	"strings"
 )
 
 type Card struct {
@@ -17,31 +15,23 @@ type Card struct {
 }
 
 func main() {
-	// Create a scanner to read from standard input
-	scanner := bufio.NewScanner(os.Stdin)
+	r := mux.NewRouter()
+	r.HandleFunc("/card/{name}", getCardHandler).Methods("GET")
+	http.Handle("/", r)
 
-	for {
-		fmt.Print("Enter card name (type 'quit' to exit): ")
-
-		scanner.Scan()
-
-		// Retrieve the text that the user entered
-		userInput := scanner.Text()
-
-		// Trim any leading or trailing whitespace
-		userInput = strings.TrimSpace(userInput)
-
-		if userInput == "quit" {
-			fmt.Println("Exiting the program...")
-			break
-		}
-
-		getCard(userInput)
+	fmt.Println("Server started on port 8080")
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		fmt.Printf("Error serving up http listener: %s", err)
+		return
 	}
 }
 
-func getCard(cardname string) {
-	url := fmt.Sprintf("https://api.scryfall.com/cards/named?fuzzy=%s", cardname)
+func getCardHandler(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	cardName := params["name"]
+
+	url := fmt.Sprintf("https://api.scryfall.com/cards/named?fuzzy=%s", cardName)
 	response, err := http.Get(url)
 	if err != nil {
 		fmt.Printf("Error retrieving card: %s", err)
@@ -63,5 +53,8 @@ func getCard(cardname string) {
 		return
 	}
 
-	fmt.Println("Response Body:", card)
+	w.Header().Set("Content-Type", "application/json")
+	if err != json.NewEncoder(w).Encode(card) {
+		fmt.Printf("Error encoding JSON: %s", err)
+	}
 }
