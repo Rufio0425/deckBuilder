@@ -16,7 +16,7 @@ type Card struct {
 
 func main() {
 	r := mux.NewRouter()
-	r.HandleFunc("/card/{name}", getCardHandler).Methods("GET")
+	r.HandleFunc("/cards/{name}", getCardHandler).Methods("GET")
 	http.Handle("/", r)
 
 	fmt.Println("Server started on port 8080")

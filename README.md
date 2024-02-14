@@ -1,6 +1,6 @@
-# Deck Builder
+# DeckBuilder
 
-Deck builder is a simple tool to store your Magic The Gathering card.  
+DeckBuilder is a simple tool to store your Magic The Gathering card.  
 The goal of this project is:
 - To allow a virtual experience for MTG enthusiasts to store the physical cards they own
 - Check a card's legality status (legal, not legal, banned) for certain formats
@@ -21,12 +21,12 @@ After building the program, run the binary executable using the following comman
 ./deckBuilder
 ```
 
-Once the program is running, you'll see the following prompt:
+DeckBuilder runs on port 8080 by default, you'll see the following prompt:
 ```bash
-Enter card name (type 'quit' to exit):
+Server started on port 8080
 ```
 
-To terminate the program simply type:
+Current HTTP requests available
 ```bash
-quit
+GET http://localhost:8080/cards/{cardName}
 ```
