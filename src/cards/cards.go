@@ -1,4 +1,4 @@
-package main
+package cards
 
 import (
 	"encoding/json"
@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-type Card struct {
+type card struct {
 	Name            string `json:"name"`
 	FlavorName      string `json:"flavor_name"`
 	CardDescription string `json:"oracle_text"`
@@ -33,7 +33,7 @@ func GetCardHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var card Card
+	var card card
 	err = json.Unmarshal(body, &card)
 	if err != nil {
 		fmt.Printf("Error unmarshalling card: %s", err)
@@ -43,5 +43,6 @@ func GetCardHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	if err != json.NewEncoder(w).Encode(card) {
 		fmt.Printf("Error encoding JSON: %s", err)
+		return
 	}
 }
