@@ -3,15 +3,19 @@ package cards
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/google/uuid"
 	"github.com/gorilla/mux"
 	"io"
 	"net/http"
 )
 
 type card struct {
-	Name            string `json:"name"`
-	FlavorName      string `json:"flavor_name"`
-	CardDescription string `json:"oracle_text"`
+	ScryfallID      uuid.UUID  `json:"id"`
+	Name            string     `json:"name"`
+	FlavorName      string     `json:"flavor_name"`
+	CardDescription string     `json:"oracle_text"`
+	ManaCost        string     `json:"mana_cost"`
+	Legalities      Legalities `json:"legalities"`
 }
 
 func GetCardHandler(w http.ResponseWriter, r *http.Request) {
