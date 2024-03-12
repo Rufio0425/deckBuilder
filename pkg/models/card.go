@@ -1,4 +1,15 @@
-package cards
+package models
+
+import "github.com/google/uuid"
+
+type Card struct {
+	ID              uuid.UUID  `json:"id"`
+	Name            string     `json:"name"`
+	FlavorName      string     `json:"flavor_name"`
+	CardDescription string     `json:"oracle_text"`
+	ManaCost        string     `json:"mana_cost"`
+	Legalities      Legalities `json:"legalities"`
+}
 
 type Legalities struct {
 	Standard        string `json:"standard"`
