@@ -9,11 +9,11 @@ import (
 )
 
 const (
-	host     = "98.168.25.81"
+	host     = "<db_ip>"
 	port     = "5432"
-	user     = "postgres"
-	password = "mUyqGf2-Kd"
-	dbname   = "postgres"
+	user     = "<postgres_user>"
+	password = "<user_password>"
+	dbname   = "<db_name>"
 )
 
 func InitDB() *sql.DB {
