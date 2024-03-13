@@ -9,6 +9,7 @@ type Card struct {
 	CardDescription string     `json:"oracle_text"`
 	ManaCost        string     `json:"mana_cost"`
 	Legalities      Legalities `json:"legalities"`
+	ImageUris       ImageUris  `json:"image_uris"`
 }
 
 type Legalities struct {
@@ -34,4 +35,13 @@ type Legalities struct {
 	Oldschool       string `json:"oldschool"`
 	Premodern       string `json:"premodern"`
 	Predh           string `json:"predh"`
+}
+
+type ImageUris struct {
+	ArtCrop    string `json:"art_crop`
+	BorderCrop string `json:"border_crop`
+	Large      string `json:"large`
+	Normal     string `json:"normal`
+	Png        string `json:"png`
+	Small      string `json:"small`
 }

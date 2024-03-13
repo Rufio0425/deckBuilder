@@ -3,16 +3,17 @@ package db
 import (
 	"database/sql"
 	"fmt"
-	_ "github.com/lib/pq"
 	"log"
+
+	_ "github.com/lib/pq"
 )
 
 const (
-	host     = "<db_ip>"
+	host     = "98.168.25.81"
 	port     = "5432"
-	user     = "<postgres_user>"
-	password = "<user_password>"
-	dbname   = "<db_name>"
+	user     = "postgres"
+	password = "mUyqGf2-Kd"
+	dbname   = "postgres"
 )
 
 func InitDB() *sql.DB {

@@ -4,20 +4,21 @@ import (
 	"deckBuilder/pkg/models"
 	"encoding/json"
 	"fmt"
-	"github.com/google/uuid"
-	"github.com/gorilla/mux"
 	"io"
 	"log"
 	"net/http"
 	"strings"
+
+	"github.com/google/uuid"
+	"github.com/gorilla/mux"
 )
 
 func (h Handler) GetCardHandler(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	cardName := params["name"]
-	trueName := strings.Replace(cardName, "+", " ", -1)
+	trueName := strings.ToLower(strings.Replace(cardName, "+", " ", -1))
 
-	query := "SELECT * FROM cards.cards WHERE name = $1;"
+	query := "SELECT * FROM cards.cards WHERE LOWER(name) = $1;"
 
 	// Query for card first
 	var card models.Card
@@ -27,6 +28,7 @@ func (h Handler) GetCardHandler(w http.ResponseWriter, r *http.Request) {
 		&card.FlavorName,
 		&card.CardDescription,
 		&card.ManaCost,
+		&card.ImageUris,
 	)
 
 	// If card is not found in DB, populate card from scryfall
