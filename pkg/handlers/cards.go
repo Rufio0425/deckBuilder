@@ -65,7 +65,7 @@ func (h Handler) GetCardHandler(w http.ResponseWriter, r *http.Request) {
 			"$3," +
 			"$4," +
 			"$5" +
-			");"
+			") ON CONFLICT DO NOTHING;"
 		if _, err := h.DB.Exec(insertCard, &card.ID, &card.Name, &card.FlavorName, &card.CardDescription, &card.ManaCost); err != nil {
 			w.WriteHeader(500)
 			log.Fatalf("Error saving card: %s", err)

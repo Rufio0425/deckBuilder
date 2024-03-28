@@ -2,21 +2,16 @@ package db
 
 import (
 	"database/sql"
+	"deckBuilder/pkg/models"
 	"fmt"
 	_ "github.com/lib/pq"
 	"log"
 )
 
-const (
-	host     = "<db_ip>"
-	port     = "5432"
-	user     = "<postgres_user>"
-	password = "<user_password>"
-	dbname   = "<db_name>"
-)
-
-func InitDB() *sql.DB {
-	connInfo := fmt.Sprintf("user=%s password=%s dbname=%s port=%s host=%s sslmode=disable", user, password, dbname, port, host)
+func InitDB(config models.Config) *sql.DB {
+	connInfo := fmt.Sprintf(
+		"user=%s password=%s dbname=%s port=%s host=%s sslmode=disable",
+		config.Database.User, config.Database.Password, config.Database.Dbname, config.Database.Port, config.Database.Host)
 	db, err := sql.Open("postgres", connInfo)
 
 	if err != nil {
