@@ -1,0 +1,7 @@
+# Create local application.yaml file; use this file as a template
+database:
+  host: "<db_ip>"
+  port: "5432"
+  user: "<postgres_user>"
+  password: "<user_password>"
+  dbname: "<db_name>"
